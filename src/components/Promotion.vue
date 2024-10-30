@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative top-[20px] w-[512px] h-[310px] flex gap-1 rounded-lg mt-2 overflow-hidden"
+    class="relative top-[20px] w-full h-[310px] flex gap-1 rounded-lg mt-2 overflow-hidden"
   >
     <img :src="image" :alt="image" class="absolute right-0 bottom-0" />
     <h2 class="absolute top-20 left-10 text-3xl w-[270px]">
