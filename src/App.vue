@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div
-      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-10 mt-10 w-full h-auto m-auto items-center mx-2"
+      class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-10 mt-10 w-full h-auto m-auto items-center mx-2"
     >
       <Category
         :class="fruit.Bg"
@@ -124,4 +124,6 @@ const fruits = [
     Bg: "bg-[#FFF3FF]",
   },
 ];
+
+
 </script>
