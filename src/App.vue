@@ -32,22 +32,20 @@ import Promotion from "./components/Promotion.vue";
 import { useProductStore } from "./productStore.service";
 // Initialize the product store
 const productStore = useProductStore();
-const currentGroupName = "Pet Foods"; 
 
-const currentCategoryName = "CCake & Milk";
+const currentCategoryName = "Pet Foods";
 
 // Computed property to get group names by category name
-const groupNameByCategory = computed(() => {
-  const category = productStore.categories.find(
-    (category) => category.name === currentCategoryName
-  );
-  return category ? category.group : null; 
+const groupNamesByCategory = computed(() => {
+  return productStore.categories
+    .filter((category) => category.group === currentCategoryName)
+    .map((category) => category.name);
 });
 
 onMounted(async () => {
   await productStore.fetchCategories();
   await productStore.fetchPromotions();
 
-  console.log("Group name for category:", currentCategoryName);
+  console.log("Group name for category:", groupNamesByCategory.value);
 });
 </script>
