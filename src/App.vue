@@ -4,7 +4,7 @@
       class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-10 mt-10 w-full h-auto m-auto items-center mx-2"
     >
       <Category
-        v-for="(f, index) in fruits"
+        v-for="(f, index) in productStore.categories"
         :key="index"
         :name="f.name"
         :image="f.image"
@@ -14,7 +14,7 @@
     </div>
     <div class="flex justify-center gap-2 mx-2">
       <Promotion
-        v-for="(promotion, index) in promotions"
+        v-for="(promotion, index) in productStore.promotions"
         :key="index"
         :title="promotion.title"
         :color="promotion.color"
@@ -26,36 +26,28 @@
 </template>
 
 <script setup>
-import axios from "axios";
-import { onMounted, ref } from "vue"; // Import required Vue functions
+import { computed, onMounted } from "vue";
 import Category from "./components/Category.vue";
 import Promotion from "./components/Promotion.vue";
-// import Promotion from './components/Promotion.vue'; // Uncomment if needed
+import { useProductStore } from "./productStore.service";
+// Initialize the product store
+const productStore = useProductStore();
+const currentGroupName = "Pet Foods"; 
 
-const fruits = ref([]);
-const promotions = ref([]);
+const currentCategoryName = "CCake & Milk";
 
-// Fetching data when the component is mounted
-const fetchCategoryData = async () => {
-  try {
-    const response = await axios.get("http://localhost:3000/api/categories");
-    fruits.value = response.data;
-    console.log("Fetched category data:", response.data);
-  } catch (error) {
-    console.error("Error fetching category data:", error);
-  }
-};
-const fetchPromotionsData = async () => {
-  try {
-    const response = await axios.get("http://localhost:3000/api/promotions");
-    promotions.value = response.data;
-    console.log("Fetched Promotions data:", response.data);
-  } catch (error) {
-    console.error("Error fetching Promotions data:", error);
-  }
-};
+// Computed property to get group names by category name
+const groupNameByCategory = computed(() => {
+  const category = productStore.categories.find(
+    (category) => category.name === currentCategoryName
+  );
+  return category ? category.group : null; 
+});
 
-// Lifecycle hook to fetch data on component mount
-onMounted(fetchCategoryData);
-onMounted(fetchPromotionsData);
+onMounted(async () => {
+  await productStore.fetchCategories();
+  await productStore.fetchPromotions();
+
+  console.log("Group name for category:", currentCategoryName);
+});
 </script>
