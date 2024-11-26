@@ -11,13 +11,20 @@ export interface TypeCategory {
 
 export interface Product {
   id: number;
-  name: string;
-  categoryId: number;
-  group: string;
-  countSold: number;
-  price: number;
+  name: string | null;
+  categoryId: number | null;
+  group: string | null;
+  countSold: number | 0;
+  price: number | null;
   image: string;
+  rating: number | null;
+  size: string | null;
+  promotionAsPercentage: number | null;
+  instock: number | null;
+  createdAt: string;
+  updatedAt: string;
 }
+
 
 export interface Promotion {
   id: number;
@@ -29,7 +36,8 @@ export interface Promotion {
 
 export const useProductStore = defineStore('product', {
   state: () => ({
-    selectedGroupName: '', // Initially, no group is selected
+    selectedGroupName: '',
+    selectedGroupNameProduct: '', // This is the one for filtering products
     groups: [] as string[],
     promotions: [] as Promotion[],
     categories: [] as TypeCategory[],
@@ -44,6 +52,15 @@ export const useProductStore = defineStore('product', {
       }
       return state.categories.filter((category: TypeCategory) => category.group === state.selectedGroupName);
     },
+
+    // Corrected filteredProduct getter to use the selectedGroupNameProduct
+    filteredProduct(state): Product[] {
+      if (state.selectedGroupNameProduct === '') {
+        return state.products; // If no group is selected, show all products
+      }
+      return state.products.filter((product: Product) => product.group === state.selectedGroupNameProduct);
+    },
+    
     // Getter to fetch categories by group
     getCategoriesByGroup: (state) => (groupName: string): TypeCategory[] => {
       return state.categories.filter((category: TypeCategory) => category.group === groupName);
@@ -60,11 +77,15 @@ export const useProductStore = defineStore('product', {
     },
   },
 
-
   actions: {
-    // Setter for selected group
+    // Setter for selected group to filter categories
     setSelectedGroup(group: string) {
       this.selectedGroupName = group;
+    },
+
+    // Setter for selected group to filter products
+    setSelectedGroupProduct(group: string) {
+      this.selectedGroupNameProduct = group;
     },
 
     async fetchCategories() {
@@ -104,3 +125,4 @@ export const useProductStore = defineStore('product', {
     },
   },
 });
+
