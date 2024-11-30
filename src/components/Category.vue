@@ -7,7 +7,7 @@
     <h4 class="opacity-50 mb-5 text-sm sm:text-base">{{ productCount }}</h4>
   </div>
 </template>
-<script>
+<script >
 export default {
   name: "Category",
   props: {
