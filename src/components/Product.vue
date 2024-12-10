@@ -1,5 +1,6 @@
 <template>
   <div
+    @click="$router.push('/product/${id}')"
     class="flex flex-col w-[300px] h-auto bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden relative"
   >
     <!-- Discount Label -->

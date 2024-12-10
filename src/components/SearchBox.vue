@@ -14,15 +14,11 @@
 
       <form class="w-full mx-20">
         <div class="flex">
-          <label
-            for="search-dropdown"
-            class="mb-2 text-sm font-medium  sr-only dark:text-white"
-            >Your Email</label
-          >
+          <!-- Dropdown Button -->
           <button
             id="dropdown-button"
-            data-dropdown-toggle="dropdown"
-            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center  bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 "
+            @click="toggleDropdown"
+            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100"
             type="button"
           >
             All categories
@@ -42,18 +38,18 @@
               />
             </svg>
           </button>
-          <div
+
+          <!-- Dropdown Menu -->
+          <div 
             id="dropdown"
-            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 "
+            :class="dropdownOpen ? 'block' : 'hidden'"
+            class="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-[140px] mt-10"
           >
-            <ul
-              class="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdown-button"
-            >
+            <ul class="py-2 text-sm text-gray-700">
               <li>
                 <button
                   type="button"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100  "
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                 >
                   Mockups
                 </button>
@@ -61,7 +57,7 @@
               <li>
                 <button
                   type="button"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100  "
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                 >
                   Templates
                 </button>
@@ -69,7 +65,7 @@
               <li>
                 <button
                   type="button"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100  "
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                 >
                   Design
                 </button>
@@ -77,24 +73,26 @@
               <li>
                 <button
                   type="button"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100  "
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100"
                 >
                   Logos
                 </button>
               </li>
             </ul>
           </div>
+
+          <!-- Search Box -->
           <div class="relative w-full">
             <input
               type="search"
               id="search-dropdown"
-              class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+              class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search...."
               required
             />
             <button
               type="submit"
-              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-400  rounded-e-lg border  focus:ring-4 focus:outline-none "
+              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-400 rounded-e-lg border focus:ring-4 focus:outline-none"
             >
               <svg
                 class="w-4 h-4"
@@ -148,10 +146,25 @@
   </header>
 </template>
 
-<script setup lang="ts">
+<script>
+export default {
+  data() {
+    return {
+      dropdownOpen: false,
+    };
+  },
+  methods: {
+    toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* Add this if using Font Awesome for icons */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+/* Fix z-index issues for dropdown */
+#dropdown {
+  position: absolute;
+}
 </style>

@@ -1,51 +1,8 @@
 <template>
-  <ShowCase></ShowCase>
   <div class="flex flex-col">
-    <div class="flex justify-between mt-5 mx-3">
-      <h1 class="text-3xl font-semibold">Featured Categories</h1>
-      <div>
-        <div class="flex gap-2 items-center">
-          <!-- Display group names -->
-          <FeatureCategory
-            v-for="(group, index) in productStore.groups"
-            :key="index"
-            :name="group"
-            @click="selectGroup(group)"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Display categories by group -->
-    <div
-      class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-10 mt-10 w-full h-auto m-auto items-center mx-2"
-    >
-      <Category
-        v-for="(category, index) in filteredCategories"
-        :key="index"
-        :name="category.name"
-        :image="category.image"
-        :productCount="category.productCount"
-        :color="category.color"
-      />
-    </div>
-
-    <!-- Display promotions -->
-    <div class="flex justify-center gap-2 mx-2">
-      <Promotion
-        v-for="(promotion, index) in productStore.promotions"
-        :key="index"
-        :title="promotion.title"
-        :color="promotion.color"
-        :buttonColor="promotion.buttonColor"
-        :image="promotion.image"
-      />
-    </div>
-    <br />
-    <div></div>
     <!-- part 3 popular product -->
     <div class="flex justify-between mt-5 mx-3">
-      <h1 class="text-3xl font-semibold">Popular Product</h1>
+      <h1 class="text-3xl font-semibold">All Product</h1>
       <div>
         <div class="flex gap-2 items-center">
           <!-- Display group names -->
@@ -84,8 +41,6 @@ import { useProductStore } from "../productStore.service";
 import Category from "./Category.vue";
 import FeatureCategory from "./FeatureCategory.vue";
 import Product from "./Product.vue";
-import Promotion from "./Promotion.vue";
-import ShowCase from "./ShowCase.vue";
 // Initialize the product store
 const productStore = useProductStore();
 
