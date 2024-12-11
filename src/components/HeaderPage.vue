@@ -1,5 +1,5 @@
 <template>
-  <div class="flex" style="border: 1px solid black;">
+  <div class="flex" style="border: 1px solid black">
     <h1>Header</h1>
     <div class="flex-span">
       <span
@@ -22,15 +22,17 @@ export default {
       activeIndex: null,
     };
   },
+  created() {
+    const queryIndex = parseInt(this.$route.query.pageIndex) || 0;
+    this.setActiveIndex(queryIndex);
+  },
   methods: {
     setActiveIndex(index) {
       this.activeIndex = index;
     },
     navigateToPage(page, index) {
       this.setActiveIndex(index);
-      
-      // Now all pages use the dynamic route "/page/:id"
-      this.$router.push(`/page/${index + 1}`);
+      this.$router.push({ query: { pageIndex: index } });
     },
   },
 };
