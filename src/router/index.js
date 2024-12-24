@@ -10,6 +10,10 @@ const router = createRouter({
       component: PageData,
       props: true,    
     },
+    {
+      path: '/:catchAll(.*)', 
+      redirect: '/page/1',
+    },
   ],
 });
 
